@@ -1,0 +1,55 @@
+<div class="events-container">
+    <h1>Detalhes do Participante</h1>
+    <div class="event-details-container">
+      <div class="event-detail-item" *ngIf="participant.event.name">
+        <strong>EVENTO</strong>
+        <p class="date-time">{{ participant.event.name }}</p>
+      </div>
+      <div class="event-detail-item" *ngIf="participant.name">
+        <strong>NOME</strong>
+        <p class="description">{{ participant.name }}</p>
+      </div>
+      <div class="event-detail-item" *ngIf="participant.email">
+        <strong>E-MAIL</strong>
+        <p class="date-time">
+            <a href="mailto:{{ participant.email }}"> {{ participant.email }} </a>
+        </p>
+      </div>
+      <div class="event-detail-item" *ngIf="participant.id_document_type">
+        <strong>TIPO DE DOCUMENTO DE IDENTIFICAÇÃO</strong>
+        <p>
+           {{ participant.id_document_type }} 
+        </p>
+      </div>
+      <div class="event-detail-item" *ngIf="participant.id_document_number">
+        <strong>NÚMERO DE DOCUMENTO DE IDENTIFICAÇÃO</strong>
+        <p class="date-time">
+           {{ participant.id_document_number }} 
+        </p>
+      </div>
+      <div class="event-detail-item" *ngIf="participant.confirmed_presence">
+        <strong>PRESENÇA CONFIRMADA</strong>
+        <p *ngIf="participant.confirmed_presence; else notConfirmed">
+            <span class="badge-success"> SIM</span>
+        </p>
+        <ng-template #notConfirmed>
+            <p><span class="badge-fail"> NÃO</span></p>
+        </ng-template>
+      </div>
+      <div class="event-detail-item" *ngIf="participant.tickets_purchased">
+        <strong>NÚMERO DE BILHETES</strong>
+        <p class="date-time">
+           <strong class="date-time"> {{ participant.tickets_purchased }} <i class="fa-solid fa-ticket"></i></strong>
+        </p>
+      </div>
+      <br/>
+      <div class="event-buttons">
+        <button class="edit-btn" (click)="goToParticipantEdit(eventId, participantId)">Editar Participante</button>
+        <button class="delete-btn" (click)="deleteParticipant(eventId, participantId)">Eliminar Participante</button>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+    

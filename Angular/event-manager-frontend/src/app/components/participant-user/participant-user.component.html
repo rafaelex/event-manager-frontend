@@ -1,0 +1,38 @@
+
+<h3>Lista das Participações em Eventos</h3>
+<div class="inner-container">
+    <div class="content">
+      <div class="item" *ngFor="let item of participants; let i = index" [class.selected]="selectedIndex === i" (click)="selectItem(i)">
+        <h6><strong>Evento</strong> {{ item.event.name }} </h6>
+        <div>
+            <div class="item-details">
+                <p><strong>Nome: </strong> {{ item.name }}</p>
+                <p><strong>Email: </strong> {{ item.email }}</p>
+                <p *ngIf="item.confirmed_presence; else notConfirmed"><strong>Presença Confirmada: </strong> <span class="badge-success"> Sim</span></p>
+                <ng-template #notConfirmed>
+                  <p><strong>Presença Confirmada: </strong> <span class="badge-fail"> Não</span></p>
+                </ng-template>
+              </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <button class="details-btn" 
+            [disabled]="selectedIndex === null" 
+            (click)="goToParticipantDetails(participants[selectedIndex].event.id, participants[selectedIndex].id)">
+        Ver Detalhes
+      </button>
+      <button class="edit-btn" 
+            [disabled]="selectedIndex === null" 
+            (click)="goToParticipantEdit(participants[selectedIndex].event.id, participants[selectedIndex].id)">
+        Editar
+      </button>
+      <button class="delete-btn" 
+            [disabled]="selectedIndex === null" 
+            (click)="deleteParticipant(participants[selectedIndex].event.id, participants[selectedIndex].id)">
+        Eliminar
+      </button>
+</div>
+  
+
+

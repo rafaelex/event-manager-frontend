@@ -1,0 +1,84 @@
+<div class="events-container">
+    <h2>Editar Evento</h2>
+    <!-- Display error message if create event fails -->
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    
+    <form [formGroup]="eventForm" (ngSubmit)="updateEvent()">
+        <div class="event-form">
+            <div class="input-group">
+                <label id="name">Evento</label>
+                <input id="name" [(ngModel)]="event.name" formControlName="name" type="text" placeholder="Digite o nome do evento" required />
+                <div *ngIf="eventForm.get('name')?.touched && eventForm.get('name')?.invalid">  
+                    <div class="field-validation" *ngIf="eventForm.get('name')?.errors?.['required']">O nome do evento é obrigatório.</div>  
+                    <div class="field-validation" *ngIf="eventForm.get('name')?.errors?.['minlength']">O nome do evento deve ter pelo menos 3 caracteres.</div>  
+                    <div class="field-validation" *ngIf="eventForm.get('name')?.errors?.['maxLength']">O nome do evento deve ter no máximo 150 caracteres.</div>  
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="description">Descrição</label>
+                <textarea id="description" [(ngModel)]="event.description" formControlName="description" rows="2" type="text" placeholder="Digite a descrição do evento" required ></textarea>
+                <div *ngIf="eventForm.get('name')?.touched && eventForm.get('description')?.invalid">  
+                    <div class="field-validation" *ngIf="eventForm.get('description')?.errors?.['required']">A descrição é obrigatória.</div>  
+                    <div class="field-validation" *ngIf="eventForm.get('description')?.errors?.['minlength']">A descrição deve ter pelo menos 3 caracteres.</div>  
+                    <div class="field-validation" *ngIf="eventForm.get('description')?.errors?.['maxLength']">A descrição deve ter no máximo 255 caracteres.</div>  
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="location">Local</label>
+                <input id="location" [(ngModel)]="event.location" formControlName="location" type="text" placeholder="Digite o local do evento" required />
+                <div *ngIf="eventForm.get('location')?.touched && eventForm.get('location')?.invalid">  
+                    <div class="field-validation" *ngIf="eventForm.get('location')?.errors?.['required']">O local é obrigatório.</div>  
+                    <div class="field-validation" *ngIf="eventForm.get('location')?.errors?.['minlength']">O local deve ter pelo menos 3 caracteres.</div>  
+                    <div class="field-validation" *ngIf="eventForm.get('location')?.errors?.['maxLength']">O local deve ter no máximo 150 caracteres.</div>  
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="organizer">Organizador</label>
+                <input id="organizer" [(ngModel)]="event.organizer" formControlName="organizer" type="text" placeholder="Digite o organizador do evento" required />
+                <div *ngIf="eventForm.get('organizer')?.touched && eventForm.get('organizer')?.invalid">  
+                    <div class="field-validation" *ngIf="eventForm.get('organizer')?.errors?.['required']">O organizador é obrigatória.</div>  
+                    <div class="field-validation" *ngIf="eventForm.get('organizer')?.errors?.['minlength']">O organizador deve ter pelo menos 3 caracteres.</div>  
+                    <div class="field-validation" *ngIf="eventForm.get('organizer')?.errors?.['maxLength']">O organizador deve ter no máximo 150 caracteres.</div>  
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="date_time_start">Data/Hora de Início</label>
+                <input type="datetime-local" id="date_time_start" name="date_time_start" [(ngModel)]="event.date_time_start" formControlName="date_time_start" [min]="minDate" [max]="maxDate" required />
+                <div *ngIf="eventForm.get('date_time_start')?.touched && eventForm.get('date_time_start')?.invalid">  
+                    <div class="field-validation" *ngIf="eventForm.get('date_time_start')?.errors?.['required']">A data de início é obrigatória.</div>   
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="date_time_end">Data/Hora de Fim</label>
+                <input type="datetime-local" id="date_time_end" name="date_time_end" [(ngModel)]="event.date_time_end" formControlName="date_time_end" [min]="minDate" [max]="maxDate" required />
+                <div *ngIf="eventForm.get('date_time_end')?.touched && eventForm.get('date_time_end')?.invalid">  
+                    <div class="field-validation" *ngIf="eventForm.get('date_time_end')?.errors?.['required']">A data de fim é obrigatória.</div>   
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="maximum_capacity">Capacidade Máxima</label>
+                <input type="number" id="maximum_capacity" name="maximum_capacity" min="1" max="999999" [(ngModel)]="event.maximum_capacity" formControlName="maximum_capacity" placeholder="Digite a capacidade máxima do evento">
+                <div *ngIf="eventForm.get('maximum_capacity')?.touched && eventForm.get('maximum_capacity')?.invalid">  
+                    <div class="field-validation" *ngIf="eventForm.get('maximum_capacity')?.errors?.['min']">A capacidade máxima deve ser no minimo 1.</div>  
+                    <div class="field-validation" *ngIf="eventForm.get('maximum_capacity')?.errors?.['max']">A capacidade máxima deve ser no máximo 999999.</div>  
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="tickets_available">Bilhetes Disponíveis</label>
+                <input type="number" id="tickets_available" name="tickets_available" min="1" max="999999" [(ngModel)]="event.tickets_available" formControlName="tickets_available" placeholder="Digite o nr de bilhetes disponíveis">
+                <div *ngIf="eventForm.get('tickets_available')?.touched && eventForm.get('tickets_available')?.invalid">   
+                    <div class="field-validation" *ngIf="eventForm.get('tickets_available')?.errors?.['min']">O nr de bilhetes disponíveis deve ser no minimo 1.</div>  
+                    <div class="field-validation" *ngIf="eventForm.get('tickets_available')?.errors?.['max']">o nr de bilhetes disponíveis deve ser no máximo 999999.</div>  
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="price">Preço do Bilhete</label>
+                <input type="number" step=".01" id="price" name="price" [(ngModel)]="event.price" formControlName="price" placeholder="Digite o preço do bilhete" value="0"/>
+                <div *ngIf="eventForm.get('price')?.touched && eventForm.get('price')?.invalid">   
+                    <div class="field-validation" *ngIf="eventForm.get('price')?.errors?.['min']">O preço do bilhete deve ser no minimo 0.</div>   
+                </div> 
+            </div>
+        </div>
+        <button type="submit" class="submit-btn">Actualizar Evento</button>
+    </form>
+</div>

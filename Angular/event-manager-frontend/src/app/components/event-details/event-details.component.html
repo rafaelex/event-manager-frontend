@@ -1,0 +1,78 @@
+<!--
+<div class="events-container">
+    <h1>Detalhes do Evento</h1>
+    <div class="event-details">
+      
+      
+        <div *ngIf="event.status">
+          <strong>Status:</strong> {{ event.status }}
+        </div>
+        <div class="event-buttons">
+          <button class="details-btn" (click)="goToParticipantList(eventId)">Participantes</button>
+          <button class="edit-btn">Participar</button>
+      </div>
+      </div>
+</div>
+-->
+<div class="events-container">
+  <h1>Detalhes do Evento</h1>
+  <div class="event-details-container">
+    <div class="event-detail-item" *ngIf="event.name">
+      <strong>EVENTO</strong>
+      <p class="name">{{ event.name }}</p>
+    </div>
+    <div class="event-detail-item" *ngIf="event.description">
+      <strong>DESCRIÇÃO</strong>
+      <p class="description">{{ event.description }}</p>
+    </div>
+    <div class="event-detail-item" *ngIf="event.location">
+      <strong>LOCAL</strong>
+      <p class="date-time">
+         {{ event.location }} <i class="fa-solid fa-location-dot"></i>
+      </p>
+    </div>
+    <div class="event-detail-item" *ngIf="event.date_time_start">
+      <strong>DATA DE INÍCIO</strong>
+      <p class="date-time">
+        {{ event.date_time_start | date:'fullDate' }} {{ event.date_time_start | date:'shortTime' }} 
+        <i class="icon fa-solid fa-calendar-days"></i><i class="fa-solid fa-clock"></i>
+      </p>
+    </div>
+    <div class="event-detail-item" *ngIf="event.date_time_end">
+      <strong>DATA DE FIM</strong>
+      <p class="date-time">
+        {{ event.date_time_end | date:'fullDate' }} {{ event.date_time_end | date:'shortTime' }} 
+        <i class="icon fa-solid fa-calendar-days"></i><i class="fa-solid fa-clock"></i>
+      </p>
+    </div>
+    <div class="event-detail-item" *ngIf="event.organizer">
+      <strong>ORGANIZADOR</strong>
+      <p>{{ event.organizer }}</p>
+    </div>
+    <div class="event-detail-item" *ngIf="event.maximum_capacity != null">
+      <strong>CAPACIDADE MÁXIMA</strong>
+      <p>{{ event.maximum_capacity }} <i class="fa-solid fa-people-group"></i></p>
+    </div>
+    <div class="event-detail-item" *ngIf="event.tickets_available != null">
+      <strong>BILHETES DISPONÍVEIS</strong>
+      <p>{{ event.tickets_available }} <i class="fa-solid fa-ticket"></i></p>
+    </div>
+    <div class="event-detail-item" *ngIf="event.price != null">
+      <strong>PREÇO</strong>
+      <p class="price">{{ event.price }} <i class="fa-solid fa-money-bill"></i>
+    </div>
+    <div class="event-detail-item" *ngIf="event.status">
+      <strong>ESTADO</strong>
+      <p> {{ event.status }}</p>
+    </div>
+  <br/>
+  <div class="event-buttons">
+    <button class="details-btn" (click)="goToParticipantList(eventId)">Ver Participantes</button>
+    <button class="edit-btn" (click)="goToAddParticipant(eventId)">Participar</button>
+  </div>
+  </div>
+</div>
+
+
+
+  

@@ -1,0 +1,63 @@
+<div class="events-container">
+    <h2>Evento {{ eventName }}</h2>
+    <h6>Registar Participação</h6>
+    <!-- Display error message if create event fails -->
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    
+    <form [formGroup]="participantForm" (ngSubmit)="createParticipant()">
+        <div class="event-form">
+            <div class="input-group">
+                <label id="name">Nome</label>
+                <input id="name" [(ngModel)]="participant.name" formControlName="name" type="text" placeholder="Digite o nome do participante" required />
+                <div *ngIf="participantForm.get('name')?.touched && participantForm.get('name')?.invalid">  
+                    <div class="field-validation" *ngIf="participantForm.get('name')?.errors?.['required']">O nome do participante é obrigatório.</div>  
+                    <div class="field-validation" *ngIf="participantForm.get('name')?.errors?.['minlength']">O nome do participante deve ter pelo menos 3 caracteres.</div>  
+                    <div class="field-validation" *ngIf="participantForm.get('name')?.errors?.['maxLength']">O nome do participante deve ter no máximo 150 caracteres.</div>  
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="email">E-mail</label>
+                <input id="email" [(ngModel)]="participant.email" formControlName="email" type="email" placeholder="Digite o e-mail do participante" required>
+                <div *ngIf="participantForm.get('email')?.touched && participantForm.get('email')?.invalid">  
+                    <div class="field-validation" *ngIf="participantForm.get('email')?.errors?.['required']">O e-mail do participante é obrigatório.</div>  
+                    <div class="field-validation" *ngIf="participantForm.get('email')?.errors?.['email']">O e-mail do participante deve ser válido.</div>
+                    <div class="field-validation" *ngIf="participantForm.get('email')?.errors?.['maxLength']">O e-mail do participante deve ter no máximo 100 caracteres.</div>    
+                  </div>  
+            </div>
+            <div class="input-group">
+                <label id="id_document_type">Tipo de Documento de Identificação</label>
+                <select id="id_document_type" [(ngModel)]="participant.id_document_type" formControlName="id_document_type" placeholder="Selecione o tipo de documento" required >
+                    <option *ngFor="let documentType of documentTypes" [value]="documentType">
+                      {{ documentType }}
+                    </option>
+                </select>
+                <div *ngIf="participantForm.get('id_document_type')?.touched && participantForm.get('id_document_type')?.invalid">  
+                    <div class="field-validation" *ngIf="participantForm.get('id_document_type')?.errors?.['required']">O tipo de documento do participante é obrigatório.</div>    
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="id_document_number">Número do Documento de Identificação</label>
+                <input id="id_document_number" [(ngModel)]="participant.id_document_number" formControlName="id_document_number" type="text" placeholder="Digite o número de documento" required />
+                <div *ngIf="participantForm.get('id_document_number')?.touched && participantForm.get('id_document_number')?.invalid">  
+                    <div class="field-validation" *ngIf="participantForm.get('id_document_number')?.errors?.['required']">O número de documento do participante é obrigatório.</div>  
+                    <div class="field-validation" *ngIf="participantForm.get('id_document_number')?.errors?.['minlength']">O número de documento do participante deve ter pelo menos 3 caracteres.</div>  
+                    <div class="field-validation" *ngIf="participantForm.get('id_document_number')?.errors?.['maxLength']">O número de documento do participante do evento deve ter no máximo 150 caracteres.</div>  
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="tickets_purchased">Número de Bilhetes</label>
+                <input type="number" id="tickets_purchased" name="tickets_purchased" value="0" min="0" max="eventTicketsAvailable" [(ngModel)]="participant.tickets_purchased" formControlName="tickets_purchased" placeholder="Digite o número de bilhetes desejados para o evento">
+                <div *ngIf="participantForm.get('tickets_purchased')?.touched && participantForm.get('tickets_purchased')?.invalid">  
+                    <div class="field-validation" *ngIf="participantForm.get('tickets_purchased')?.errors?.['required']">O número de bilhetes é obrigatório.</div>  
+                    <div class="field-validation" *ngIf="participantForm.get('tickets_purchased')?.errors?.['min']">O número mínimo de bilhetes para o evento é 0.</div>  
+                    <div class="field-validation" *ngIf="participantForm.get('tickets_purchased')?.errors?.['maxLength']">O número máximo de bilhetes para o evento é {{ eventTicketsAvailable }}.</div>  
+                </div> 
+            </div>
+            <div class="input-group">
+                <label id="confirmed_presence">Confirma a presença?</label>
+                <input class="checkbox" type="checkbox" id="confirmed_presence" name="confirmed_presence" [(ngModel)]="participant.confirmed_presence" formControlName="confirmed_presence">
+            </div>
+        </div>
+        <button type="submit" class="submit-btn">Adicionar Participação</button>
+    </form>
+</div>
